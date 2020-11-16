@@ -1,10 +1,7 @@
 package io.hackages.learning.domain.manager.flight.core;
 
 import io.hackages.learning.domain.manager.flight.spi.FlightServiceProvider;
-import io.hackages.learning.domain.model.Aircraft;
-import io.hackages.learning.domain.model.Flight;
-import io.hackages.learning.domain.model.FlightType;
-import io.hackages.learning.domain.model.Location;
+import io.hackages.learning.domain.model.*;
 import org.junit.Before;
 import org.junit.Test;
 import org.mockito.InjectMocks;
@@ -31,20 +28,20 @@ public class FlightServiceImplTest {
     @Test
     public void givenNoParameters_whenGetFlight_thenSucceed() {
         //given
-        Aircraft aircraft = new Aircraft("AH123", "Airbus A380");
+        Airplane airplane = new Airplane("AH123", "B3XM", "Boeing 737 MAX 10");
         Flight flight = new Flight(
                 FlightType.MH.getType(),
                 Location.CDG.getAirport(),
                 Location.AMS.getAirport(),
                 LocalDateTime.now().plusHours(1).toString(),
                 LocalDateTime.now().plusHours(2).toString(),
-                aircraft);
+                airplane);
         when(flightProvider.getFlights()).thenReturn(Arrays.asList(flight, flight));
         //when
         List<Flight> flights =  flightService.getFlights();
         //then
         assertThat(flights.size()).isEqualTo(2);
-        assertThat(flights.get(1).getAircraft()).isEqualTo(aircraft);
+        assertThat(flights.get(1).getAirplane()).isEqualTo(airplane);
     }
 
     @Test

@@ -1,9 +1,9 @@
-package io.hackages.learning.domain.manager.aircraft.core;
+package io.hackages.learning.domain.manager.airplane.core;
 
 import io.hackages.learning.domain.exception.FunctionalException;
 import io.hackages.learning.domain.exception.TechnicalException;
-import io.hackages.learning.domain.manager.aircraft.spi.AircraftServiceProvider;
-import io.hackages.learning.domain.model.Aircraft;
+import io.hackages.learning.domain.manager.airplane.spi.AirplaneServiceProvider;
+import io.hackages.learning.domain.model.Airplane;
 import org.junit.Before;
 import org.junit.Test;
 import org.mockito.InjectMocks;
@@ -11,18 +11,19 @@ import org.mockito.Mock;
 import org.mockito.Mockito;
 import org.mockito.MockitoAnnotations;
 
-import java.io.IOException;
 import java.util.Arrays;
 import java.util.List;
 
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.mockito.Mockito.*;
 
-public class AircraftServiceImplTest {
+public class AirplaneServiceImplTest {
 
-    @Mock AircraftServiceProvider provider;
+    @Mock
+    AirplaneServiceProvider provider;
 
-    @InjectMocks AircraftServiceImpl aircraftService;
+    @InjectMocks
+    AirplaneServiceImpl aircraftService;
 
     @Before
     public void setUp() {
@@ -30,45 +31,45 @@ public class AircraftServiceImplTest {
     }
 
     @Test
-    public void givenNothing_whenGetAircrafts_thenSucceed() {
+    public void givenNothing_whenGetAirplanes_thenSucceed() {
         //Given
-        Aircraft aircraft = mock(Aircraft.class);
-        when(provider.getAircrafts()).thenReturn(Arrays.asList(aircraft, aircraft, aircraft));
+        Airplane airplane = mock(Airplane.class);
+        when(provider.getAirplanes()).thenReturn(Arrays.asList(airplane, airplane, airplane));
         //When
-        List<Aircraft> aircrafts = aircraftService.getAircrafts();
+        List<Airplane> airplanes = aircraftService.getAirplanes();
         //Then
-        assertThat(aircrafts.size()).isEqualTo(3);
+        assertThat(airplanes.size()).isEqualTo(3);
     }
 
     @Test(expected = FunctionalException.class)
     public void givenNullCode_whenAddAircraft_thenThrowFunctionException() {
         //When
-        aircraftService.addAircraft(new Aircraft(null,"Best Thing to do"));
+        aircraftService.addAirplane(new Airplane(null,"A343", "Airbus A340-300"));
     }
 
     @Test
     public void giveCode_whenDeleteAircraft_thenSucceed() throws Exception {
         //Give
-        aircraftService.deleteAircraft("AH111");
+        aircraftService.removeAirplane("AH111");
         //Then
-        verify(provider, times(1)).deleteAircraft("AH111");
+        verify(provider, times(1)).deleteAirplane("AH111");
     }
 
     @Test(expected = FunctionalException.class)
     public void giveCode_whenDeleteAircraft_thenThrowFunctionalError() throws Exception {
         //When
-        Mockito.doThrow(FunctionalException.class).when(provider).deleteAircraft("007");
+        Mockito.doThrow(FunctionalException.class).when(provider).deleteAirplane("007");
         //Give
-        aircraftService.deleteAircraft("007");
+        aircraftService.removeAirplane("007");
     }
 
     @Test
     public void giveCode_whenDeleteAircraft_thenThrowTechnicalException() throws Exception {
         //When
-        Mockito.doThrow(IOException.class).when(provider).deleteAircraft("0011");
+        Mockito.doThrow(TechnicalException.class).when(provider).deleteAirplane("0011");
         //Give
         try {
-            aircraftService.deleteAircraft("0011");
+            aircraftService.removeAirplane("0011");
         } catch (TechnicalException ex) {
             assertThat(ex.getMessage()).isEqualTo("Connection error with the database");
         }
@@ -77,14 +78,14 @@ public class AircraftServiceImplTest {
     @Test
     public void giveCode_whenGetAircraftByCode_thenWeSucceedToGetOneAircraft() {
         //When
-        Aircraft aircraft = new Aircraft("AH007", "Airbus A360");
-        Mockito.when(provider.fetchAircraftByCode("AH007")).thenReturn(aircraft);
+        Airplane airplane = new Airplane("AH007", "A342", "Airbus A340-200");
+        Mockito.when(provider.getAirplaneByCode("AH007")).thenReturn(airplane);
 
         //Give
-        Aircraft result = aircraftService.getAircraftByCode("AH007");
+        Airplane result = aircraftService.getAirplaneByCode("AH007");
 
         // Then
-        assertThat(result).isEqualTo(aircraft);
+        assertThat(result).isEqualTo(airplane);
     }
 
     @Test
@@ -93,10 +94,10 @@ public class AircraftServiceImplTest {
         // This call will return a functional exception
         //Give
         try {
-            Aircraft result = aircraftService.getAircraftByCode(null);
+            Airplane result = aircraftService.getAirplaneByCode(null);
             // Then
         } catch (FunctionalException ex) {
-            assertThat(ex.getMessage()).isEqualTo("Incorrect Entry Data");
+            assertThat(ex.getMessage()).isEqualTo("Missing required data for this action");
         }
     }
 

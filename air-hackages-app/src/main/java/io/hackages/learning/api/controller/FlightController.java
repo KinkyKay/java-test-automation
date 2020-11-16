@@ -6,12 +6,10 @@ import io.hackages.learning.domain.model.Flight;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.http.MediaType;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
+import java.util.Map;
 
 @RestController
 @RequestMapping("flights")
@@ -30,17 +28,22 @@ public class FlightController {
     }
 
     @GetMapping(produces = MediaType.APPLICATION_JSON_VALUE)
-    List<Flight> getFlights() {
+    List<Flight> getFlights(@RequestParam Map<String, String> parameters) {
         return getFlightService().getFlights();
     }
 
     @GetMapping(value = "/origin/{origin}", produces = MediaType.APPLICATION_JSON_VALUE)
-    List<Flight> getFirstFlightsByOrigin(@PathVariable String origin) {
+    List<Flight> getFlightsByOrigin(@PathVariable String origin) {
         return getFlightService().getFlightByOrigin(origin);
     }
 
     @GetMapping(value = "/destination/{destination}", produces = MediaType.APPLICATION_JSON_VALUE)
-    List<Flight> getFirstFlightsByDestination(@PathVariable String destination) {
+    List<Flight> getFlightsByDestination(@PathVariable String destination) {
         return getFlightService().getFlightByDestination(destination);
+    }
+
+    @PostMapping(produces = MediaType.APPLICATION_JSON_VALUE)
+    Flight addFlight(@RequestBody Flight flight) {
+        return getFlightService().addFlight(flight);
     }
 }

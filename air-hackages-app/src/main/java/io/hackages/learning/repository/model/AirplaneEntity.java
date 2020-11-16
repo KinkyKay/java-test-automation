@@ -6,15 +6,17 @@ import org.hibernate.annotations.OnDeleteAction;
 import javax.persistence.*;
 
 @Entity
-@Table(name = "AIRCRAFTS")
+@Table(name = "AIRPLANES")
 @OnDelete(action = OnDeleteAction.CASCADE)
-public class AircraftEntity {
+public class AirplaneEntity {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
     private String code;
+
+    private String model;
 
     private String description;
 
@@ -34,6 +36,14 @@ public class AircraftEntity {
         this.code = code;
     }
 
+    public String getModel() {
+        return model;
+    }
+
+    public void setModel(String model) {
+        this.model = model;
+    }
+
     public String getDescription() {
         return description;
     }
@@ -42,26 +52,28 @@ public class AircraftEntity {
         this.description = description;
     }
 
-    public AircraftEntity(String code, String description) {
+    public AirplaneEntity(String code, String model, String description) {
         this.code = code;
+        this.model = model;
         this.description = description;
     }
 
-    public AircraftEntity(Long id, String code, String description) {
+    public AirplaneEntity(Long id, String code, String model, String description) {
         this.id = id;
         this.code = code;
+        this.model = model;
         this.description = description;
     }
 
-    public AircraftEntity() {
+    public AirplaneEntity() {
     }
 
     @Override
     public String toString() {
-        return "Aircraft{" +
+        return "AircraftEntity{" +
                 "id=" + id +
                 ", code='" + code + '\'' +
-                ", description='" + description + '\'' +
+                ", model='" + model + '\'' +
                 '}';
     }
 }

@@ -20,8 +20,8 @@ public class FlightEntity {
 
     private String arrivalDate;
 
-    @OneToOne(targetEntity = AircraftEntity.class, cascade = CascadeType.ALL, orphanRemoval = true)
-    private AircraftEntity aircraft;
+    @OneToOne(targetEntity = AirplaneEntity.class, fetch = FetchType.LAZY, cascade = CascadeType.ALL)
+    private AirplaneEntity airplane;
 
     public Long getId() {
         return id;
@@ -71,12 +71,12 @@ public class FlightEntity {
         this.arrivalDate = arrivalDate;
     }
 
-    public AircraftEntity getAircraft() {
-        return aircraft;
+    public AirplaneEntity getAirplane() {
+        return airplane;
     }
 
-    public void setAircraft(AircraftEntity aircraft) {
-        this.aircraft = aircraft;
+    public void setAirplane(AirplaneEntity airplane) {
+        this.airplane = airplane;
     }
 
     @Override
@@ -88,20 +88,29 @@ public class FlightEntity {
                 ", destination='" + destination + '\'' +
                 ", departureDate='" + departureDate + '\'' +
                 ", arrivalDate='" + arrivalDate + '\'' +
-                ", aircraft=" + aircraft +
+                ", airplane=" + airplane +
                 '}';
     }
 
     public FlightEntity() {
     }
 
-    public FlightEntity(Long id, String type, String origin, String destination, String departureDate, String arrivalDate, AircraftEntity aircraft) {
+    public FlightEntity(String type, String origin, String destination, String departureDate, String arrivalDate, AirplaneEntity airplane) {
+        this.type = type;
+        this.origin = origin;
+        this.destination = destination;
+        this.departureDate = departureDate;
+        this.arrivalDate = arrivalDate;
+        this.airplane = airplane;
+    }
+
+    public FlightEntity(Long id, String type, String origin, String destination, String departureDate, String arrivalDate, AirplaneEntity airplane) {
         this.id = id;
         this.type = type;
         this.origin = origin;
         this.destination = destination;
         this.departureDate = departureDate;
         this.arrivalDate = arrivalDate;
-        this.aircraft = aircraft;
+        this.airplane = airplane;
     }
 }

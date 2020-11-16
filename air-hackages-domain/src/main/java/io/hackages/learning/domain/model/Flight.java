@@ -2,6 +2,8 @@ package io.hackages.learning.domain.model;
 
 public class Flight {
 
+    private Long id;
+
     private String type;
 
     private String origin;
@@ -12,17 +14,27 @@ public class Flight {
 
     private String arrivalDate;
 
-    private Aircraft aircraft;
+    private Airplane airplane;
 
     public Flight() {}
 
-    public Flight(String type, String origin, String destination, String departureDate, String arrivalDate, Aircraft aircraft) {
+    public Flight(Long id, String type, String origin, String destination, String departureDate, String arrivalDate, Airplane airplane) {
+        this.id = id;
         this.type = type;
         this.origin = origin;
         this.destination = destination;
         this.departureDate = departureDate;
         this.arrivalDate = arrivalDate;
-        this.aircraft = aircraft;
+        this.airplane = airplane;
+    }
+
+    public Flight(String type, String origin, String destination, String departureDate, String arrivalDate, Airplane airplane) {
+        this.type = type;
+        this.origin = origin;
+        this.destination = destination;
+        this.departureDate = departureDate;
+        this.arrivalDate = arrivalDate;
+        this.airplane = airplane;
     }
 
     public String getType() {
@@ -45,7 +57,7 @@ public class Flight {
         return arrivalDate;
     }
 
-    public Aircraft getAircraft() {
-        return aircraft;
+    public Airplane getAirplane() {
+        return airplane;
     }
 }

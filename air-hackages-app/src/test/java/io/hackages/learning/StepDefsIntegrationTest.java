@@ -7,12 +7,11 @@ import io.cucumber.java.en.And;
 import io.cucumber.java.en.Given;
 import io.cucumber.java.en.Then;
 import io.cucumber.java.en.When;
-import io.hackages.learning.domain.model.Aircraft;
+import io.hackages.learning.domain.model.Airplane;
 import io.hackages.learning.domain.model.Flight;
-import io.hackages.learning.repository.model.AircraftEntity;
+import io.hackages.learning.repository.model.AirplaneEntity;
 import io.hackages.learning.repository.model.FlightEntity;
 import org.hamcrest.core.StringContains;
-import org.json.JSONObject;
 import org.springframework.boot.web.client.RestTemplateBuilder;
 import org.springframework.http.HttpStatus;
 
@@ -31,14 +30,14 @@ public class StepDefsIntegrationTest extends SpringIntegrationTest {
         super(builder);
     }
 
-    @Given("We have the following aircrafts in the database")
-    public void setup_aircraft_table_in_the_database(DataTable table) throws Throwable {
+    @Given("We have the following airplanes in the database")
+    public void setup_airplanes_table_in_the_database(DataTable table) throws Throwable {
         cleanDatabase();
-        List<AircraftEntity> aircraftEntities = new ArrayList<>();
+        List<AirplaneEntity> airplaneEntities = new ArrayList<>();
         table.cells().stream()
-                .map(fields -> new AircraftEntity(Long.parseLong(fields.get(0)), fields.get(1), fields.get(2)))
-                .forEach(aircraftEntities::add);
-        setupAircraftDatabase(aircraftEntities);
+                .map(fields -> new AirplaneEntity(Long.parseLong(fields.get(0)), fields.get(1), fields.get(2), fields.get(3)))
+                .forEach(airplaneEntities::add);
+        setupAirplaneDatabase(airplaneEntities);
     }
 
     @And("We have the following flights in the database")
@@ -46,23 +45,23 @@ public class StepDefsIntegrationTest extends SpringIntegrationTest {
         List<FlightEntity> flightEntities = new ArrayList<>();
         table.cells().stream()
                 .map(fields -> {
-                    AircraftEntity aircraftEntity = getAircraftBycode(fields.get(6));
-                    return new FlightEntity(Long.parseLong(fields.get(0)), fields.get(1), fields.get(2), fields.get(3), fields.get(4), fields.get(5), aircraftEntity);
+                    AirplaneEntity airplaneEntity = getAirplaneBycode(fields.get(6));
+                    return new FlightEntity(Long.parseLong(fields.get(0)), fields.get(1), fields.get(2), fields.get(3), fields.get(4), fields.get(5), airplaneEntity);
                 })
                 .forEach(flightEntities::add);
         setupFlightDatabase(flightEntities);
     }
 
-    @And("the number of aircrafts is {int}")
-    public void the_number_of_aircrafts_is_value(int value) throws Throwable {
+    @And("the number of airplanes is {int}")
+    public void the_number_of_airplanes_is_value(int value) throws Throwable {
         ObjectMapper objectMapper = new ObjectMapper();
-        final List<Aircraft> aircrafts = objectMapper.readValue(latestResponse.getBody(), new TypeReference<List<Aircraft>>(){});
-        assertThat(aircrafts.size(), is(equalTo(value)));
+        final List<Airplane> airplanes = objectMapper.readValue(latestResponse.getBody(), new TypeReference<List<Airplane>>(){});
+        assertThat(airplanes.size(), is(equalTo(value)));
     }
 
-    @When("the client calls POST /aircrafts with code {word} and description {word}")
-    public void the_client_add_one_aircraft(String code, String description) throws Throwable {
-        executePost(new Aircraft(code, description));
+    @When("the client calls POST /airplanes with code {word} model {word} and description {string}")
+    public void the_client_add_one_airplane(String code, String model, String description) throws Throwable {
+        executePost("airplanes", new Airplane(code, model, description));
     }
 
     @When("the client calls /{word}")
@@ -80,7 +79,7 @@ public class StepDefsIntegrationTest extends SpringIntegrationTest {
                 destination,
                 flight.getDepartureDate(),
                 flight.getArrivalDate(),
-                flight.getAircraft()
+                flight.getAirplane()
         );
     }
 
@@ -136,6 +135,33 @@ public class StepDefsIntegrationTest extends SpringIntegrationTest {
         ObjectMapper objectMapper = new ObjectMapper();
         final List<Flight> flights = objectMapper.readValue(latestResponse.getBody(), new TypeReference<List<Flight>>(){});
         flights.stream().forEach(flight -> assertThat(flight.getDestination(), StringContains.containsString(destination)));
+    }
+
+    @Then("there is no flight for this destination")
+    public void there_is_no_flight_for_this_destination() throws Throwable{
+        ObjectMapper objectMapper = new ObjectMapper();
+        final List<Flight> flights = objectMapper.readValue(latestResponse.getBody(), new TypeReference<>(){});
+        assertThat(flights.size(), is(equalTo(0)));
+    }
+
+    @Then("we have one flight")
+    public void we_have_one_flight() throws Throwable {
+        ObjectMapper objectMapper = new ObjectMapper();
+        final List<Flight> flights = objectMapper.readValue(latestResponse.getBody(), new TypeReference<>(){});
+        assertThat(flights.size(), is(equalTo(1)));
+    }
+
+    @Then("the client add a destination to {string}")
+    public void the_client_add_a_destination_to_city(String destination) throws Throwable{
+        AirplaneEntity airplaneEntity = new AirplaneEntity("AH707", "AX330", "Airbus 330");
+        FlightEntity flight = new FlightEntity(
+                "Medium-Haul",
+                "Brussels",
+                destination,
+                "2020-11-12 12:08:17.320053-03",
+                "2020-11-12 14:08:17.320053-03",
+                airplaneEntity);
+        executePost("flights", flight);
     }
 
 }

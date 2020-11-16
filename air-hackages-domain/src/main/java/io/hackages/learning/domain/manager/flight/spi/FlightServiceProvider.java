@@ -11,4 +11,6 @@ public interface FlightServiceProvider {
     List<Flight> getFlightByOrigin(String origin);
 
     List<Flight> getFlightByDestination(String destination);
+
+    Flight saveFlight(Flight flight);
 }

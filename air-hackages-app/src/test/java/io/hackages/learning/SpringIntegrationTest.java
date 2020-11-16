@@ -1,10 +1,9 @@
 package io.hackages.learning;
 
 import io.cucumber.spring.CucumberContextConfiguration;
-import io.hackages.learning.domain.model.Aircraft;
-import io.hackages.learning.repository.dao.AircraftDao;
+import io.hackages.learning.repository.dao.AirplaneDao;
 import io.hackages.learning.repository.dao.FlightDao;
-import io.hackages.learning.repository.model.AircraftEntity;
+import io.hackages.learning.repository.model.AirplaneEntity;
 import io.hackages.learning.repository.model.FlightEntity;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
@@ -29,7 +28,7 @@ public class SpringIntegrationTest {
     private RestTemplate restTemplate;
 
     @Autowired
-    AircraftDao aircraftDao;
+    AirplaneDao airplaneDao;
 
     @Autowired
     FlightDao flightDao;
@@ -54,7 +53,7 @@ public class SpringIntegrationTest {
         });
     }
 
-    void executePost(Object data) throws IOException {
+    void executePost(String endpoint, Object data) throws IOException {
         final Map<String, String> headers = new HashMap<>();
         headers.put("Accept", "application/json");
         final HeaderSettingRequestCallback requestCallback = new HeaderSettingRequestCallback(headers);
@@ -66,28 +65,28 @@ public class SpringIntegrationTest {
 
         restTemplate.setErrorHandler(errorHandler);
 
-        resultObject = restTemplate.postForObject("http://localhost:5000/aircrafts", data, Object.class);
+        resultObject = restTemplate.postForObject("http://localhost:5000/".concat(endpoint), data, Object.class);
     }
 
     void cleanDatabase() {
         flightDao.deleteAll();
-        aircraftDao.deleteAll();
+        airplaneDao.deleteAll();
     }
 
-    void setupAircraftDatabase(List<AircraftEntity> aircrafts) {
-        aircraftDao.saveAll(aircrafts);
+    void setupAirplaneDatabase(List<AirplaneEntity> airplanes) {
+        airplaneDao.saveAll(airplanes);
     }
 
     void setupFlightDatabase(List<FlightEntity> flightEntities) {
         flightDao.saveAll(flightEntities);
     }
 
-    AircraftEntity getAircraftById(Long id) {
-        return aircraftDao.findById(id).get();
+    AirplaneEntity getAirplaneById(Long id) {
+        return airplaneDao.findById(id).get();
     }
 
-    AircraftEntity getAircraftBycode (String code) {
-        return aircraftDao.findByCode(code);
+    AirplaneEntity getAirplaneBycode (String code) {
+        return airplaneDao.findByCode(code);
     }
 
     private class ResponseResultErrorHandler implements ResponseErrorHandler {

@@ -39,4 +39,9 @@ public class FlightServiceImpl implements FlightService {
     public List<Flight> getFlightByDestination(String destination) {
         return provider.getFlightByDestination(destination);
     }
+
+    @Override
+    public Flight addFlight(Flight flight) {
+        return provider.saveFlight(flight);
+    }
 }

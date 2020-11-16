@@ -7,4 +7,5 @@ import java.util.List;
 
 public interface FlightDao extends CrudRepository<FlightEntity, Long> {
     List<FlightEntity> findByOrigin(String origin);
+    List<FlightEntity> findByDestination(String destination);
 }

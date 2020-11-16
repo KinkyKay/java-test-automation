@@ -1,9 +1,10 @@
-DROP TABLE IF EXISTS AIRCRAFTS;
+DROP TABLE IF EXISTS AIRPLANES;
 
-CREATE TABLE AIRCRAFTS (
+CREATE TABLE AIRPLANES (
   id INT AUTO_INCREMENT  PRIMARY KEY,
   code VARCHAR(250) NOT NULL,
-  description VARCHAR(250) NOT NULL,
+  model VARCHAR(250) NOT NULL,
+  description VARCHAR(250),
   UNIQUE (code)
 );
 
@@ -16,6 +17,6 @@ CREATE TABLE FLIGHTS (
     destination VARCHAR(250),
     departure_date TIMESTAMP,
     arrival_date TIMESTAMP,
-    aircraft_id INT,
-    FOREIGN KEY (aircraft_id) REFERENCES aircrafts(id) ON DELETE CASCADE
+    airplane_id INT,
+    FOREIGN KEY (airplane_id) REFERENCES airplanes(id) ON DELETE CASCADE
 )

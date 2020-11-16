@@ -13,4 +13,6 @@ public interface FlightService {
 
     List<Flight> getFlightByDestination(String destination);
 
+    Flight addFlight(Flight flight);
+
 }
