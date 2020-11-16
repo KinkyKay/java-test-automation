@@ -1,0 +1,32 @@
+//----------------------------------------------------------------------------//
+									CUCUMBER
+//----------------------------------------------------------------------------//
+Cucumber is one of the tools written in ruby to do Behavioral-driven development.
+In Cucumber test scenario is written in a plain English language called Gherkin.
+
+Advantages of Cucumber:
+	$ Multi-language support like java, .net, ruby
+	$ It acts as a bridge between business and technical
+	$ Test cases/scenario can be written without knowing any coding language
+	  which involves businesspeople closely on writing scenarios.
+	$ It can be used for end to end test framework and UAT
+
+From my point of view, BDD is almost similar to TDD and it is on top TDD with
+an extra step that has the feature file where you write the different business
+scenarios in plain English, which is understandable by business people.
+
+Against these feature files, you will have the step-definition classes where 
+each scenario will present into a multiple-step method to writing the logic
+inside that. The step definition class will be similar to your traditional JUNIT
+test class at TDD development.
+
+To include cucumber library into your project using Maven build systems, use the
+following templates and replace VERSION with the actual library version of your
+repository:
+		<dependency>
+			<groupId>io.cucumber</groupId>
+			<artifactId>cucumber-core</artifactId>
+			<version>VERSION</version>
+			<scope>test</scope>
+		</dependency>
+		

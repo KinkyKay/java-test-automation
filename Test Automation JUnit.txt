@@ -1,0 +1,62 @@
+//----------------------------------------------------------------------------//
+							TEST AUTOMATION - JUNIT
+//----------------------------------------------------------------------------//
+JUnit is probably the most popular unit testing framework. It has a very active
+community that can answer your questions on forums. Let's consider the basic
+concepts of JUnit.
+
+First, you need to include the JUnit library in your project. If you are using
+Maven, take the following templates and replace VERSION with the actual library
+version of your repository:
+
+		<dependency>
+			<groupId>junit</groupId>
+			<artifactId>junit</artifactId>
+			<version>VERSION</version>
+			<scope>test</scope>
+		</dependency>
+
+
+The method is interpreted as a test if it is tagged by @Test annotation:
+
+		@Test
+		public void testMethod() {
+			...
+		}
+		
+		
+Usually, all unit tests of class methods are placed in a separate class. Build
+systems like Maven include running unit  tests at the end of the build process.
+It helps to detect bugs and fails the build if any of the unit tests fail.
+
+One of the distinctive features of unit testing is the isolation of each test.
+To achieve that and avoid code duplication, you can use @Before, @BeforeClass,
+@After, and @AfterClass annotations.
+
+		@BeforeClass
+		public static void setUpClass() throws Exception {
+			// Code executed before the first test method
+		}
+
+		@Before
+		public void setUp() throws Exception {
+			// Code executed before each test
+		}
+
+		@After
+		public void tearDown() throws Exception {
+			// Code executed after each test 
+		}
+ 
+		@AfterClass
+		public static void tearDownClass() throws Exception {
+			// Code executed after the last test method 
+		}
+		
+		
+JUnit uses a special API named Assertions as acceptance criteria. It is a set
+of methods that checks if the resulting value matches the expected value and 
+throws an error if not. Some commonly used methods are:
+			$ assertEquals
+			$ assertTrue
+			$ assertNotNull

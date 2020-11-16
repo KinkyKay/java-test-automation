@@ -1,0 +1,107 @@
+//----------------------------------------------------------------------------//
+								TEST AUTOMATION
+//----------------------------------------------------------------------------//
+
+//----- What is Automation Testing? -----//
+Test automation is the practice of running tests automatically, managing test
+data, and utilizing results to improve software quality. It's primarily a 
+quality assurance measure.
+
+//----- Types of Automated Tests -----//
+$ Code analysis:
+	Tere are actually many different types of code analysis tools, including
+	static analysis and dynamic analysis. Some of these tests look for 
+	security flaws, others check for style and form. These tests run when a 
+	developer checks in code. Other than configuring rules and keeping the 
+	tools up to date, there isn't much test writing to do these automated tests
+	
+$ Unit Tests:
+	You can also automate a unit test suite. Unit tests are designed to test
+	a single function, or unit, of operation in isolation. They typically run
+	on a build server. These tests don't depend on databases, external API's, 
+	or storage file. They need to be fast and are designed to test the code
+	only, not the external dependencies.
+
+$ Integration Tests:
+	Integration tests are a different kind of animal when it comes to 
+	automation. Since an integration test - sometimes called end-to-end tests
+	- needs to interact with external dependencies, they're more complicated
+	to set up. Often, it's best to create fake external resources, expecially
+	when dealing with resources beyond your control.
+
+$ Automated Acceptance Tests:
+	There are several practices today that use automated acceptance tests (AAT),
+	but they're basically doing the same thing. Behavior-driven development(BDD)
+	and automated acceptance test-driven development (AATDD) are simular. They
+	both follow the same practice of creating the acceptance test before the 
+	feature is developed.
+	In the end, the automated acceptance test runs to determine if the feature
+	delivers what's been agreed upon.
+
+	REGRESSION Tests
+	Without AAT's in place, you have to write regression tests after the fact.
+	While both are forms of functional tests, how they're written, when they're
+	written, and whom they're written by are vastly different. Like AAT's, they
+	can be driven trough an API by code or a UI. Tools exist to write these
+	tests using a GUI.
+
+$ Performance Tests:
+	Many kinds of performance tests exist, but they all test some aspect of an
+	application's performance. Will it hold up to extreme pressure? Are we 
+	testing the system for high heat? Is it simple response time under load
+	we're after? How about scalability?
+	Sometimes these tests require emulating a massive number of users. In 
+	this case, it's important to have an environment that's capable of 
+	performing such a feat.
+
+$ Smoke tests:
+	What's a smoke test? It's a basic test that's usually performed after a 
+	deployment or maintenance window. The purpose of a smoke test is to 
+	ensure that all services and dependencies are up and running. A smoke 
+	test isn't meant to be an all-out functional test. It can be run as part
+	of an automated deployment or triggered through a manual step.
+
+//----- Criteria for Automation -----//
+$ Repeatable
+	* Set up the test, including data and environment
+	* Execute the function and measure the result
+	* Clean up the data and environment
+$ Determinant
+	* The outcome is the same every time test run with the same input.
+	
+//----- Test Automation Process -----//
+$ Prepare
+	* Prepare test data and environment
+$ Take action
+	* Run tests
+$ Report Results
+	* Record and report results
+	
+//----- Continuous Integration Workflow -----//
+$ Write test
+$ Run test on Local that fails
+$ Write Code
+$ Run test on Local that passes
+$ Compile code in CI
+$ Deploy artifact from CI
+
+//----- Benefits of CI -----//
+$ Reduced Integration Risk
+$ Higher Code Quality
+$ The Code in Version Control works
+$ Reduced friction between team members
+$ Easy for QA Team
+
+//----- Steps to test -----//
+$ We create two datasets: the input and the expected output
+$ We define acceptance criteria: some conditions determining if the unit works
+  as expected
+$ We pass the created input to the tested unit
+$ The input invokes code of the tested unit
+$ The code produces an output
+$ The protocol output is checked by acceptance criteria which compare the 
+  actual output with the expected one
+$ Acceptance criteria return the result: pass or fails
+
+  
+    

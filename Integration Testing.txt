@@ -1,0 +1,11 @@
+//-----------------------------------------------------------------------------//
+								INTEGRATION TESTING
+//-----------------------------------------------------------------------------//
+Integration testing is a way of testing software by grouping software components
+together. In a complex software system, there are numerous interconnections 
+applicable to a particular feature, which makes writing integration tests 
+difficult.
+
+In this workflow, we have test input data that is provided to a system
+component A, which then interacts with components B and C. The result of the
+output is then verified with the expected output.

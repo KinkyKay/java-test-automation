@@ -1,0 +1,47 @@
+//----------------------------------------------------------------------------//
+						TEST AUTOMATION - UNIT TESTING
+//----------------------------------------------------------------------------//
+
+//----- Unit Testing -----//
+Java is an object-oriented programming language. One of the central concepts of
+Java is class. Any Java program can be seen as a combination of classes that 
+interact with each other via methods. In Java, a class is considered to be a
+unit, and methods are subject to unit testing.
+
+//----- What is Unit Testing? -----//
+There are different types of testing in software engineering, all serving 
+different purposes. We will consider one that is performed by developers: unit
+testing. This is probably the most popular methodology: it implies testing the
+behavior of a unit of an application. A unit is a portion of code that does
+exactly one task, so it's the smallest testable part of an application.
+
+//----- Steps to test a unit -----//
+The main idea of unit testing is to isolate a specific unit and check that it
+works properly.
+Generally, each unit behaves similarly: it consumes input data, performs some
+action on it and produces output data. We can use this behavior to verify the
+code. The test goes through the following stages:
+
+	$ We create two datasets: the input and the expected output;
+	$ We define acceptance criteria: some conditions determining if the unit
+	  works as expected. Usually, the acceptance criterion is a comparison of
+	  the actual output with the expected one.
+    $ We pass the created input dataset to the tested unit;
+	$ The input invokes code of the tested unit;
+	$ The code produces an output;
+	$ The produced output is checked by acceptance criteria which compare the
+	  actual output with the expected one;
+	$ Acceptance criteria return the result: pass or fail.
+	
+//----- Manual Vs Automated -----//
+All these steps can be carried out manually or be automated. It is in fact very
+uncommon to opt for manual unit testing, and there are a couple of sound reasons
+for that. First, testing is a really repetitive process: every time you make a
+small change in your code, you have to retest it. Doing this manually would be
+daunting. Second, unit testing can be easily automated, so there is simply no
+reason to do it manually.
+
+Automated test cases are reusable. Suppose you add a new feature to your program;
+you can execute existing test cases to check whether the new feature has 
+affected the application.
+

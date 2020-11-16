@@ -1,0 +1,20 @@
+//----------------------------------------------------------------------------//
+						TEST AUTOMATION - MOCKITO
+//----------------------------------------------------------------------------//
+In complex classes, a unit test often needs to instantiate and configure a lot
+of objects. The set-up is time-consuming and the test may turn out to be more
+complicated than the tested code itself. In these cases, mockito framework is
+particularly useful. It allows you to create a special object known as mock
+and define its behavior during execution.
+
+To include mockito library into your project using Maven build system, use the
+following templates and replace VERSION with the actual library version of 
+your repository:
+			<dependency>
+				<groupId>org.mockito</groupId>
+				<artifactId>mockito-core</artifactId>
+				<version>VERSION</version>
+				<scope>test</scope>
+			</dependency>
+			
+			

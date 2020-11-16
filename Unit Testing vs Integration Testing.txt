@@ -1,0 +1,38 @@
+//----------------------------------------------------------------------------//
+						UNIT TESTING VS INTEGRATION TESTING
+//----------------------------------------------------------------------------//
+Normally a software application is developed by a team of many people. So while
+developing an application is divided into different modules and modules are
+divided into different developers of the team. When a single developer writes
+some code, let's say a common function, and test that function then this type 
+of testing is called Unit Testing. When all the different modules are developed
+and integrated then testing is required to check if the complete application is 
+working properly or not after integrating different modules. This type of 
+testing is called Integration Testing.
+
+Difference between Unit Testing and integration Testing:
+	$ Unit Testing
+		$$ Unit testing is a type of testing to check if the small piece of
+		   code or a single function is doing as per the expectation
+	    $$ It checks a single component/function of the application
+	    $$ Its scope is very limited
+	    $$ It should have no dependencies on code outside its definition
+	    $$ This is the first type of testing is to be carried out in the
+		  software testing life cycle and generally executed by the developer.
+	    $$ The goal of Unit testing is to test each unit separately and ensure
+		  that each unit is working as expected.
+	    $$ Unit testing comes under the White-box testing type.
+	   
+    $ Integration Testing
+		$$ Integration testing is a type of testing to check if different
+		   modules are working as expected after integrating each other.
+	    $$ It checks the overall flow of the application, after the integration
+		   of different modules
+	    $$ Its scope is very wide
+		$$ This type of testing can have each element in the software application
+		$$ This is performed after unit testing. Generally, the script is
+		   preferred to test the integration testing
+		$$ Integration testing is further divided into different types as follows:
+		   Top-down integration, Bottom-up Integration, etc
+	    $$ Integration testing is coming under both Black-box and White-box type
+		   of testing
